@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <color name="Skype">#1983DA</color>
+    <color name="success">#00FF08</color>
+    <color name="failed">#FF0000</color>
+
+</resources>

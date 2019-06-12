@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:background="@mipmap/skype3" />
+
+
+    <ImageView
+        android:layout_width="146dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@mipmap/mocrosoft1" />
+
+
+    <TextView
+        android:layout_width="282dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text="Create account "
+        android:textSize="30dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="to continue to Skype"
+        android:id="@+id/result_create"
+        />
+
+
+
+    <EditText
+        android:id="@+id/edit_name_txt"
+        android:layout_width="321dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/Skype"
+        android:hint="Name" />
+
+    <EditText
+        android:id="@+id/edit_password_txt"
+        android:layout_width="321dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/Skype"
+        android:hint="Password" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Sign in your account"
+        android:clickable="true"
+        android:id="@+id/signin_tx"
+        android:textColor="@color/Skype"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_marginTop="108dp"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/back_btnc"
+            android:layout_width="116dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="100dp"
+            android:text="Back" />
+        <Button
+            android:layout_width="116dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/Skype"
+            android:text=" Next"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/next_btnc"
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>

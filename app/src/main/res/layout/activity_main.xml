@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/container"
+    tools:context=".Main"
+    android:orientation="vertical"
+    android:gravity="center">
+
+        <!--swipe in android -->
+    <TextView
+        android:id="@+id/detect_swipe_direction_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textAllCaps="false"
+        android:text="Swipe on the screen to see my text changed."
+        />
+
+
+    <!--curve button-->
+
+    <!--<Button-->
+        <!--android:id="@+id/rou"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="38dp"-->
+        <!--android:width="80dp"-->
+        <!--android:height="80dp"-->
+        <!--android:background="@drawable/round"-->
+        <!--android:text="Round Corner"-->
+        <!--android:textColor="#FFF"-->
+        <!--app:layout_constraintRight_toRightOf="parent" />-->
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" -->
+        <!--android:text="Oval Button"-->
+        <!--android:layout_marginTop="50dp"-->
+        <!--android:textColor="@color/colorPrimary"-->
+        <!--android:background="@drawable/oval"-->
+        <!--/>-->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:background="@drawable/circle"
+        android:text="circle"
+        android:textColor="#FFF" />
+
+
+
+</LinearLayout>
