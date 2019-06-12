@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@mipmap/background"
+    android:orientation="vertical">
+    <ImageView
+    android:layout_width="116dp"
+    android:layout_height="112dp"
+    android:background="@mipmap/skype1"
+    android:layout_gravity="center"
+    android:layout_marginTop="100dp"
+    />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="Let's get started"
+        android:textColor="@color/colorAccent"
+        android:textSize="30dp" />
+
+    <Button
+        android:layout_width="276dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/oval"
+        android:text="Sign in or create"
+        android:id="@+id/signin_create_btn"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/mocrosoft"
+        android:layout_gravity="center"
+        android:layout_marginTop="110dp"
+        />
+</LinearLayout>
