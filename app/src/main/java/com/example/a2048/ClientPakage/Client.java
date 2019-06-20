@@ -2,13 +2,14 @@ package com.example.a2048.ClientPakage;
 
 import android.media.Image;
 
+import com.example.a2048.activities.Constants;
+
+import org.bson.Document;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
-
-import com.fasterxml.jackson.core.*;        ///////////////////////////////////////////////
 
 public class Client extends Thread {
 
@@ -16,18 +17,18 @@ public class Client extends Thread {
     Socket client;
     DataInputStream read;
     DataOutputStream print;
-    private String name,lastName,password,birthday;
+    private String username, lastName, password, birthday;
     private Image picture;
     private static Client instence;
     private UiInterface ui;
 
     //getter setter start
-    public String getname() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setname(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getLastName() {
@@ -64,30 +65,74 @@ public class Client extends Thread {
 
 
     public static Client getInstance() throws IOException {
+
         if (instence == null) instence = new Client();
         return instence;
+
     }
 
-    public void setUi(UiInterface ui){
+    public void setUi(UiInterface ui) {
+
         this.ui = ui;
+
     }
 
     //getter setter finished
     protected Client() throws IOException {
 
+        client = new Socket("192.168.43.244", 8888);
+        read = new DataInputStream(client.getInputStream());
+        print = new DataOutputStream(client.getOutputStream());
+
     }
     // constructor is private yani nemishe biron az in ja azash shey sakht
+
+    public interface UiInterface {
+
+        void Result(boolean isSuccess, String message);
+        boolean isUiRunning();
+
+    }
+
+    private void runOnNewThread(Runnable runnable) {
+        new Thread(runnable).start();
+    }//to in tabe ye tread mostaqel baraye login kardan karbar behesh midim
 
     @Override
     public void run() {
 
+        String result, command;
+        Document document;
 
-        try {//init() mikonim
+        while (true) {
 
+            result=null;
+            command=null;
+            document=null;
 
-            initialize();
+//inja montazer mimone ta server ye dastory barash befreste va in bere ba tavajoh be natije morede nazar layeye graphicy ro avaz mikone
+            try {
 
-            String command = read.readUTF();
+                result = read.readUTF();
+                document = Document.parse(result);
+                command = document.getString(Constants.TYPE);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            switch (command) {
+                case Constants.SIGNUPREQUEST:
+                    SignUpًReaction(document);
+                    break;
+                case Constants.LOGINREQUEST:
+                    LoginReaction(document);
+                    break;
+                case Constants.NOTIFICATION:
+//                    createNotification();
+                    break;
+
+            }
 
 //            switch (command) {
 //
@@ -118,60 +163,125 @@ public class Client extends Thread {
 
 // deqat konim har kodom az in case ha qabl az break shodan bayad zavab nahaie ro be thread UI befrestan
 
-        } catch (IOException e) {
-            e.printStackTrace();
+
+//            switch (command) {
+//
+//                case creat:
+//                    create();
+//                    break;
+//                case signin:
+//
+//                    break;
+//                case signout:
+//
+//                    break;
+//            }
+            //switch case ha ro inja mizarim
+
+            //listen for incoming messages
+
+            //login ro to inja fara mikhonim
+            //ui.onLoginResult(true,"login success");
+            //break;
+            //logout
+
+            //list
+
+            //tamas
+
+            //...
+
+// deqat konim har kodom az in case ha qabl az break shodan bayad zavab nahaie ro be thread UI befrestan
+
+
         }
     }
 
-    private void initialize() throws IOException {
 
-                                                        //create new socket and input and output streams
-        client=new Socket("localhost",8888);
-        read=new DataInputStream(client.getInputStream());
-        print=new DataOutputStream(client.getOutputStream());
-
-    }
-
-    public void login(final String username,final String password){//tabe login hastesh
-        //create new thread and send login request
+    public void createAccount(final String name, final String password) {
 
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                //out.write("login "+ username +" "+ password);
-                ui.Result(true,"login success");
-                ui.Result(false,"login failed");
+
+                try {
+                    // in print baraye ine ke server ham befahme bayad tabe sign up ro baz kone
+                    print.writeUTF(Constants.SIGNUPREQUEST);
+                    print.flush();
+                    // inja miyaim name o pass ro mifrestim be server ta result ro azash begirim
+                    Document json=new Document();
+                    json.append(Constants.USERNAME,name);
+                    json.append(Constants.PASSWORD,password);
+                    String Send = json.toString();
+
+                    print.writeUTF(Send);
+                    print.flush();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
         };
         runOnNewThread(runnable);
     }
 
-    private void runOnNewThread(Runnable runnable){
-        new Thread(runnable).start();
-    }//to in tabe ye tread mostaqel baraye login kardan karbar behesh midim
+    private void SignUpًReaction(Document document) {
 
-    public interface UiInterface {
-        void Result(boolean isSuccess,String message);
-        boolean isUiRunning();
+        ui.Result(document.getBoolean(Constants.WASSUCCESS),document.getString(Constants.MASSAGE));
+
+        if(document.getBoolean(Constants.WASSUCCESS)) {
+
+            setUsername(document.getString(Constants.USERNAME));
+            setPassword(document.getString(Constants.PASSWORD));
+
+        }
     }
 
-
-
-    public void create(String name,String password) throws IOException {
+    public void Login(final String username, final String password){
 
         Runnable runnable=new Runnable() {
             @Override
             public void run() {
+                try {
 
-//                ObjectWriter ow=new ObjectWrapper().writer().writeDefultprettyPrinter();
-//                ObjectOutputStream
+                    print.writeUTF(Constants.LOGINREQUEST);
+                    print.flush();
 
-                ui.Result(true,"create success");
+                    Document json = new Document();
+                    json.append(Constants.USERNAME,username);
+                    json.append(Constants.PASSWORD,password);
+                    String send = json.toString();
 
-                ui.Result(false,"this name already exist");
+                    print.writeUTF(send);
+                    print.flush();
 
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         };
+
         runOnNewThread(runnable);
     }
+
+    private void LoginReaction(Document document) {
+
+        ui.Result(document.getBoolean(Constants.WASSUCCESS),document.getString(Constants.MASSAGE));
+
+    }
+
+//    public void login(final String username, final String password) {//tabe login hastesh
+//        //create new thread and send login request
+//
+//        Runnable runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                //out.write("login "+ username +" "+ password);
+//                ui.Result(true, "login success");
+//                ui.Result(false, "login failed");
+//            }
+//        };
+//        runOnNewThread(runnable);
+//    }
 }

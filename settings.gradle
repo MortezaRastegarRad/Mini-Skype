@@ -1,1 +1,1 @@
-include ':app', ':jackson-core-2.9.9', ':jackson-annotations-2.9.0', ':jackson-databind-2.9.9'
+include ':app'

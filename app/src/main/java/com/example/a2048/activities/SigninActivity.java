@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,38 +34,58 @@ public class SigninActivity extends Activity implements View.OnClickListener, Cl
         next.setOnClickListener(this);
         create.setOnClickListener(this);
 
-        try {
-            Client.getInstance().setUi(this);
-            //میاد این اکتیویتی رو میده به یو آی
-            Client.getInstance().login(name.getText().toString(),password.getText().toString());
-            //تو لوگین میایم فرایند ثبت نام رو انجام میدیم و اگر موفقیت امیز بود میایم یو آی رو تابعشو صدا میزنیم که تو هر اکتیویتی اورراید شده و عمل مخصوص گرافیک رو انجام میده
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+
+            case R.id.creat_account_txt:
+                Intent go_to_page_creat=new Intent("android.intent.action.CREATEACTIVITY");
+                startActivity(go_to_page_creat);
+                break;
+            case R.id.back_btn:
+                Intent go_to_page_SigninOrCreate=new Intent("android.intent.action.SIGNINORCREATE");
+                startActivity(go_to_page_SigninOrCreate);
+                break;
+            case  R.id.next_btn:
+                try {
+                    //میاد این اکتیویتی رو میده به یو آی
+                    Client.getInstance().setUi(this);
+                    Client.getInstance().Login(name.getText().toString(),password.getText().toString());
+                    //تو لوگین میایم فرایند ثبت نام رو انجام میدیم و اگر موفقیت امیز بود میایم یو آی رو تابعشو صدا میزنیم که تو هر اکتیویتی اورراید شده و عمل مخصوص گرافیک رو انجام میده
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
     }
 
     //inja mortabet kardim be laye graphic
     @Override
     public void Result(final boolean isSuccess, final String message) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                loginResult(isSuccess,message);
-            }
-        });
-    }
+        result.setText(message);
 
-    private void loginResult(boolean isSuccess, String message) {
         if (isSuccess){
-            result.setText(message);
+            result.setTextColor(ContextCompat.getColor(this,R.color.success));
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    //starting next activity
+
+                    Intent go_to_page_Menu = new Intent();
+                    startActivity(go_to_page_Menu);
+
                 }
-            },2000);
+
+            },1000);
+        }else{
+            result.setTextColor(ContextCompat.getColor(this,R.color.failed));
         }
+    }
+
+    @Override
+    public boolean isUiRunning() {
+        return true;
     }
 
     private void init() {
@@ -74,22 +95,6 @@ public class SigninActivity extends Activity implements View.OnClickListener, Cl
         back=(Button) findViewById(R.id.back_btn);
         create =(TextView) findViewById(R.id.creat_account_txt);
         result=(TextView) findViewById(R.id.result_signin);
-    }
-
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-
-            case R.id.creat_account_txt:
-            case R.id.back_btn:
-                Intent go_to_page_creat=new Intent("android.intent.action.CREATEACTIVITY");
-                startActivity(go_to_page_creat);
-                break;
-            case  R.id.next_btn:
-                //Client.getInstance().signin();
-                break;
-        }
     }
 
     @Override

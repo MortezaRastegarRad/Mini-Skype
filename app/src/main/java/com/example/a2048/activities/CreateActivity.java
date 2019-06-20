@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +20,6 @@ import com.example.a2048.ClientPakage.Client;
 import com.example.a2048.R;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 public class CreateActivity extends Activity implements View.OnClickListener,Client.UiInterface{
 
@@ -90,11 +88,12 @@ public class CreateActivity extends Activity implements View.OnClickListener,Cli
                 Intent back_to_previous_page=new Intent("android.intent.action.SIGNINORCREATE");
                 startActivity(back_to_previous_page);
                 break;
+
             case R.id.next_btnc:
                 try {
 
                     Client.getInstance().setUi(this);
-                    Client.getInstance().create(name.getText().toString(),password.getText().toString());
+                    Client.getInstance().createAccount(name.getText().toString(),password.getText().toString());
 
                 } catch (IOException e) {
 
@@ -102,29 +101,11 @@ public class CreateActivity extends Activity implements View.OnClickListener,Cli
 
                 }
                 break;
+
             case R.id.signin_tx:
                 Intent Go_to_page_signinActivity=new Intent("android.intent.action.SIGNINACTIVITY");
                 startActivity(Go_to_page_signinActivity);
                 break;
-        }
-    }
-
-    public void Signin(boolean isSuccess,String message){
-        result.setText(message);
-        if(isSuccess){
-            result.setTextColor(ContextCompat.getColor(this,R.color.success));
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                    Intent go_to_page_menu=new Intent();//ye action bayad bedimesh
-                    startActivity(go_to_page_menu);
-
-                }
-            },1000);
-        }
-        else {
-            result.setTextColor(ContextCompat.getColor(this,R.color.failed));
         }
     }
 
@@ -136,12 +117,29 @@ public class CreateActivity extends Activity implements View.OnClickListener,Cli
     }
 
     @Override
-    public void Result(boolean is,String message) {
-        Signin(is,message);
+    public void Result(boolean isSuccess,String message) {
+
+        result.setText(message);
+
+        if(isSuccess){
+            result.setTextColor(ContextCompat.getColor(this,R.color.success));
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    Intent go_to_page_menu=new Intent("android.intent.action.MENUACTIVITY");
+                    startActivity(go_to_page_menu);
+
+                }
+            },2000);
+        }
+        else {
+            result.setTextColor(ContextCompat.getColor(this,R.color.failed));
+        }
     }
 
     @Override
     public boolean isUiRunning() {
         return isFinishing();
-    }
+    }//age false bashe yani barname dar hale ejra ast
 }

@@ -1,43 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
         >
-        <LinearLayout
+
+        <Button
+            android:id="@+id/profile_btn"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/circle" />
+
+        <Button
+            android:id="@+id/search_btn"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="240dp"
+            android:background="@mipmap/search_icon" />
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scroll_menu"
+        android:layout_width="match_parent"
+        android:layout_height="446dp">
+
+        <ListView
+            android:id="@+id/contacts_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="sdFgsdfg"
-                />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="grhg" />
-        </LinearLayout>
+
+        </ListView>
 
     </ScrollView>
-    <Button
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="sadsad"
-        />
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/chat_btn"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:background="@mipmap/chat_icon" />
+
+        <Button
+            android:id="@+id/call_btn"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="65dp"
+            android:layout_marginRight="65dp"
+            android:background="@mipmap/call_icon" />
+
+        <Button
+            android:id="@+id/contact_btn"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:background="@mipmap/contact_icon" />
+
+    </LinearLayout>
 
 </LinearLayout>

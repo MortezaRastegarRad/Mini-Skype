@@ -44,12 +44,12 @@ public class DetectActivity extends AppCompatActivity implements Client.UiInterf
         // Create the gesture detector with the gesture listener.
         gestureDetectorCompat = new GestureDetectorCompat(this, gestureListener);
 
-        try {
-            Client.getInstance().login("asd","asdasd");
-            Client.getInstance().setUi(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Client.getInstance().login("asd","asdasd");
+//            Client.getInstance().setUi(this);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -92,8 +92,10 @@ public class DetectActivity extends AppCompatActivity implements Client.UiInterf
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+
+
     @Override
-    public void Result(HashMap<String, Object> map) {
+    public void Result(boolean isSuccess, String message) {
 
     }
 

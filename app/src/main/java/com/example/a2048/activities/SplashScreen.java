@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.a2048.ClientPakage.Client;
 import com.example.a2048.R;
+
+import java.io.IOException;
 
 public class SplashScreen extends Activity {
 
@@ -20,6 +23,12 @@ public class SplashScreen extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.splashscreen);
+
+        try {
+            Client.getInstance();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 //        Thread T=new Thread(){ in ja ye tread baz mikone va on ro 5 saniye motevaqef mikone va bad miyad safhe jadid ro baz mikone
 //
